@@ -1,17 +1,13 @@
-import { useState } from 'react';
-import React, { Component } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
-import Home from './components/Home'; 
-import SignUp from './components/SignUp';
-import Login from './components/Login';
-import Navbar from './components/Navbar';
-
-
-
-
+import { useState } from "react";
+import React, { Component } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import Home from "./components/Home";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
+import AddProducts from "./components/AddProducts";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,9 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/navbar" element={<Navbar />} />
-
-      
+        <Route path="/addproducts" element={<AddProducts />} />
       </Routes>
     </BrowserRouter>
   );

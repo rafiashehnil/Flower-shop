@@ -3,6 +3,7 @@ import logo from '../assets/flower-shop.png';
 import img from '../assets/aras.jpg';
 import { Link } from 'react-router-dom';
 
+
 const Navbar = () => {
   return (
     <div class="navbar bg-base-100">
