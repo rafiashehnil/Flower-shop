@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../assets/flower-shop.png';
 import img from '../assets/aras.jpg';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -65,6 +66,10 @@ const Navbar = () => {
         <li><a>Logout</a></li>
       </ul>
     </div>
+    <div className="flex items-center">
+          <Link to="/login" className="btn btn-ghost">Login</Link>
+          <Link to="/signup" className="btn btn-ghost">Sign Up</Link>
+        </div>
   </div>
 </div>
   );
