@@ -11,7 +11,7 @@ const Navbar = () => {
     <a class="btn btn-ghost text-xl">
     <img src={logo}
             alt="Logo" 
-            className="h-[30px] md:h-[50px] lg:h-[49px] xl:h-[80px]"
+            className="h-[30px] md:h-[50px] lg:h-[49px] xl:h-[60px]"
             />
     </a>
   </div>
