@@ -4,6 +4,7 @@ import Products from "./Products";
 import Hero from "./Hero";
 import Footer from "./Footer";
 
+
 const Home = () => {
   return (
     <div>

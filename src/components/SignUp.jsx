@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../config/Config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -7,8 +9,9 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -16,18 +19,25 @@ const SignUp = () => {
       return;
     }
 
-    // Perform your signup logic here, e.g., using Firebase Auth
-    // Replace this with your actual signup method
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log('User signed up:', email);
 
-    // Clear form fields after submission
-    setName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setError('');
+      // Clear form fields after submission
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setError('');
+      setSuccessMessage('Signup successful! You can now log in.');
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        setError('Email already in use. Please use a different email.');
+      } else {
+        setError(error.message);
+      }
+      setSuccessMessage('');
+    }
   };
 
   return (
@@ -35,6 +45,7 @@ const SignUp = () => {
       <div className="container mx-auto max-w-md bg-gray-800 p-6 rounded-lg shadow-md">
         <h2 className="text-3xl font-bold mb-4 text-center text-white">Sign Up</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
+        {successMessage && <p className="text-green-500 text-center">{successMessage}</p>}
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="flex flex-col text-left">
             <label htmlFor="name" className="text-sm font-medium text-gray-200">
