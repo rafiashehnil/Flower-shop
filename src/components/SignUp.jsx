@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../config/Config';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -20,7 +20,8 @@ const SignUp = () => {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(userCredential.user, { displayName: name });
       console.log('User signed up:', email);
 
       // Clear form fields after submission
@@ -120,3 +121,4 @@ const SignUp = () => {
 };
 
 export default SignUp;
+

@@ -11,7 +11,6 @@ import AddProducts from "./components/AddProducts";
 import Footer from "./components/Footer";
 
 
-
 function App() {
   const [count, setCount] = useState(0);
 
