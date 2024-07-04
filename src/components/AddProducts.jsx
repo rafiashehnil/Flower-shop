@@ -59,11 +59,9 @@ const AddProducts = () => {
       <h2 className="text-2xl font-bold mb-4 text-left">ADD PRODUCTS</h2>
       <hr className="mb-4" />
       <form autoComplete="off" className="space-y-4" onSubmit={handleSubmit}>
+        {/* Product Name */}
         <div className="form-group">
-          <label
-            htmlFor="product-name"
-            className="block text-sm font-medium text-gray-700 text-left"
-          >
+          <label htmlFor="product-name" className="block text-sm font-medium text-gray-700 text-left">
             Product Name
           </label>
           <input
@@ -75,11 +73,10 @@ const AddProducts = () => {
             required
           />
         </div>
+
+        {/* Product Price */}
         <div className="form-group">
-          <label
-            htmlFor="product-price"
-            className="block text-sm font-medium text-gray-700 text-left"
-          >
+          <label htmlFor="product-price" className="block text-sm font-medium text-gray-700 text-left">
             Product Price
           </label>
           <input
@@ -91,11 +88,10 @@ const AddProducts = () => {
             required
           />
         </div>
+
+        {/* Product Image */}
         <div className="form-group">
-          <label
-            htmlFor="product-img"
-            className="block text-sm font-medium text-gray-700 text-left"
-          >
+          <label htmlFor="product-img" className="block text-sm font-medium text-gray-700 text-left">
             Product Image
           </label>
           <input
@@ -107,6 +103,8 @@ const AddProducts = () => {
           />
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </div>
+
+        {/* Submit Button */}
         <div className="text-left">
           <button
             type="submit"
@@ -121,4 +119,3 @@ const AddProducts = () => {
 };
 
 export default AddProducts;
-

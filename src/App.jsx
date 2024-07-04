@@ -9,6 +9,7 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import AddProducts from "./components/AddProducts";
 import Footer from "./components/Footer";
+import Profile from "./components/Profile";
 
 
 function App() {
@@ -23,8 +24,10 @@ function App() {
         <Route path="/addproducts" element={<AddProducts />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/profile" component={<Profile/>} />
       </Routes>
     </BrowserRouter>
+  
   );
 }
 
