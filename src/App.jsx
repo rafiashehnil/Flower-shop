@@ -10,6 +10,8 @@ import Login from "./components/Login";
 import AddProducts from "./components/AddProducts";
 import Footer from "./components/Footer";
 import Profile from "./components/Profile";
+import Hero from './components/Hero';
+import Shop from './components/Shop';
 
 
 function App() {
@@ -25,6 +27,9 @@ function App() {
         <Route path="/footer" element={<Footer />} />
         <Route path="/home" element={<Home />} />
         <Route path="/profile" component={<Profile/>} />
+        <Route path="/" element={<Hero />} />
+        <Route path="/shop" element={<Shop />} />
+
       </Routes>
     </BrowserRouter>
   

@@ -2,12 +2,27 @@ import React, { useState } from 'react';
 import { db, storage } from '../config/Config';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const AddProducts = () => {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productImage, setProductImage] = useState(null);
   const [error, setError] = useState('');
+  const [user, setUser] = useState(null);
+
+  // Monitor authentication state
+  React.useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+        alert('Please log in to add products');
+      }
+    });
+  }, []);
 
   // Handle image file change
   const handleImageChange = (e) => {
@@ -25,6 +40,11 @@ const AddProducts = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      alert('You must be logged in to add a product');
+      return;
+    }
+
     if (!productName || !productPrice || !productImage) {
       alert('Please fill in all fields');
       return;
@@ -35,13 +55,15 @@ const AddProducts = () => {
       const storageRef = ref(storage, `products/${productImage.name}`);
       await uploadBytes(storageRef, productImage);
       const imageUrl = await getDownloadURL(storageRef);
+      console.log('Image uploaded to Firebase Storage:', imageUrl);
 
       // Add product data to Firestore
-      await addDoc(collection(db, 'products'), {
+      const docRef = await addDoc(collection(db, 'products'), {
         name: productName,
         price: productPrice,
         imageUrl: imageUrl,
       });
+      console.log('Product added to Firestore with ID:', docRef.id);
 
       // Reset form fields and state
       alert('Product added successfully');
@@ -50,7 +72,7 @@ const AddProducts = () => {
       setProductImage(null);
     } catch (error) {
       console.error('Error adding product: ', error);
-      alert('Error adding product');
+      setError('Error adding product: ' + error.message);
     }
   };
 
