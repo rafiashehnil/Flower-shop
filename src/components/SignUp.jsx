@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { auth } from '../config/Config';
+import { auth, db } from '../config/Config'; // Import db from your config file
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -22,6 +23,14 @@ const SignUp = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name });
+
+      // Add user data to Firestore
+      await setDoc(doc(db, 'users', userCredential.user.uid), {
+        uid: userCredential.user.uid,
+        name,
+        email,
+      });
+
       console.log('User signed up:', email);
 
       // Clear form fields after submission
@@ -121,4 +130,5 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
 
